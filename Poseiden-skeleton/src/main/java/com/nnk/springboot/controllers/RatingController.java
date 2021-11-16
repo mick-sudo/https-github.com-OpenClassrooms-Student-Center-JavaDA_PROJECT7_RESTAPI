@@ -39,7 +39,7 @@ public class RatingController {
         if (!result.hasErrors()) {
         	ratingRepository.save(rating);
             model.addAttribute("rating", rating);
-            return "redirect:/curvePoint/list";
+            return "redirect:/rating/list";
         }
         return "rating/add";
     }

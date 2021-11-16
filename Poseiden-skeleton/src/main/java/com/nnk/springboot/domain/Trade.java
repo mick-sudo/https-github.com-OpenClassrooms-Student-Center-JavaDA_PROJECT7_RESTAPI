@@ -36,10 +36,11 @@ public class Trade {
 
 	
 	
-	public Trade(String account, String type) {
+	public Trade(String account, String type, double buyQuantity) {
 		super();
 		this.account = account;
 		this.type = type;
+		this.buyQuantity = buyQuantity;
 	}
 
 	public Trade() {

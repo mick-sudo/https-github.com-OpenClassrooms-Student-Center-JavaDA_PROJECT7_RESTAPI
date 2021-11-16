@@ -1,6 +1,9 @@
 package com.nnk.springboot.controllers;
 
 import com.nnk.springboot.domain.RuleName;
+import com.nnk.springboot.repositories.RuleNameRepository;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -14,11 +17,14 @@ import javax.validation.Valid;
 @Controller
 public class RuleNameController {
     // TODO: Inject RuleName service
+	@Autowired
+	private RuleNameRepository ruleNameRepository;
 
     @RequestMapping("/ruleName/list")
     public String home(Model model)
     {
         // TODO: find all RuleName, add to model
+    	model.addAttribute("rulenames", ruleNameRepository.findAll());
         return "ruleName/list";
     }
 
@@ -30,6 +36,11 @@ public class RuleNameController {
     @PostMapping("/ruleName/validate")
     public String validate(@Valid RuleName ruleName, BindingResult result, Model model) {
         // TODO: check data valid and save to db, after saving return RuleName list
+        if (!result.hasErrors()) {
+        	ruleNameRepository.save(ruleName);
+            model.addAttribute("rating", ruleName);
+            return "redirect:/ruleName/list";
+        }
         return "ruleName/add";
     }
 
