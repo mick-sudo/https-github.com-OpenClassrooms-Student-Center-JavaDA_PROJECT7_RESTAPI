@@ -1,5 +1,6 @@
 package com.nnk.springboot.controllers;
 
+import com.nnk.springboot.domain.CurvePoint;
 import com.nnk.springboot.domain.RuleName;
 import com.nnk.springboot.repositories.RuleNameRepository;
 
@@ -47,12 +48,20 @@ public class RuleNameController {
     @GetMapping("/ruleName/update/{id}")
     public String showUpdateForm(@PathVariable("id") Integer id, Model model) {
         // TODO: get RuleName by Id and to model then show to the form
+    	RuleName ruleName = ruleNameRepository.findById(id)
+				.orElseThrow(() -> new IllegalArgumentException("Invalid curve Id:" + id));
+		model.addAttribute("ruleName", ruleName);
         return "ruleName/update";
     }
 
     @PostMapping("/ruleName/update/{id}")
     public String updateRuleName(@PathVariable("id") Integer id, @Valid RuleName ruleName,
                              BindingResult result, Model model) {
+    	if (result.hasErrors()) {
+            return "curvePoint/update";
+        }
+    	ruleName.setId(id);
+        ruleNameRepository.save(ruleName);
         // TODO: check required fields, if valid call service to update RuleName and return RuleName list
         return "redirect:/ruleName/list";
     }
@@ -60,6 +69,9 @@ public class RuleNameController {
     @GetMapping("/ruleName/delete/{id}")
     public String deleteRuleName(@PathVariable("id") Integer id, Model model) {
         // TODO: Find RuleName by Id and delete the RuleName, return to Rule list
+    	RuleName ruleName = ruleNameRepository.findById(id)
+				.orElseThrow(() -> new IllegalArgumentException("Invalid rule Id:" + id));
+    	ruleNameRepository.delete(ruleName);
         return "redirect:/ruleName/list";
     }
 }

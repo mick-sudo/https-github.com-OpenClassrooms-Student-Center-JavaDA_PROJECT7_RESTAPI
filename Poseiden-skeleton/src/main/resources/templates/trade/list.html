@@ -46,8 +46,8 @@
 				<td  th:text="${trade.type}"></td>
 				<td  th:text="${trade.buyQuantity}"></td>
 				<td>
-					<a th:href="@{/tradePoint/update/{id}(id= ${trade.tradeId})}"><i class="far fa-edit"></i>Edit</a>
-					<a th:href="@{/tradePoint/delete/{id}(id= ${trade.tradeId})}"><i class="fas fa-trash"></i>Delete</a>
+					<a th:href="@{/trade/update/{id}(id= ${trade.tradeId})}"><i class="far fa-edit"></i>Edit</a>
+					<a th:href="@{/trade/delete/{id}(id= ${trade.tradeId})}"><i class="fas fa-trash"></i>Delete</a>
 				</td>
 			</tr>
 				</tbody>

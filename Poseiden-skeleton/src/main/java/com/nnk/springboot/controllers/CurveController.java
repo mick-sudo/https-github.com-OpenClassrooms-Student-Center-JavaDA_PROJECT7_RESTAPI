@@ -1,7 +1,6 @@
 package com.nnk.springboot.controllers;
 
-import com.nnk.springboot.domain.CurvePoint;
-import com.nnk.springboot.repositories.CurvePointRepository;
+import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -12,7 +11,9 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import javax.validation.Valid;
+import com.nnk.springboot.domain.BidList;
+import com.nnk.springboot.domain.CurvePoint;
+import com.nnk.springboot.repositories.CurvePointRepository;
 
 @Controller
 public class CurveController {
@@ -47,18 +48,29 @@ public class CurveController {
     @GetMapping("/curvePoint/update/{id}")
     public String showUpdateForm(@PathVariable("id") Integer id, Model model) {
         // TODO: get CurvePoint by Id and to model then show to the form
+    	CurvePoint curve = curvePointRepository.findById(id)
+				.orElseThrow(() -> new IllegalArgumentException("Invalid curve Id:" + id));
+		model.addAttribute("curvePoint", curve);
         return "curvePoint/update";
     }
 
     @PostMapping("/curvePoint/update/{id}")
     public String updateBid(@PathVariable("id") Integer id, @Valid CurvePoint curvePoint,
                              BindingResult result, Model model) {
+    	if (result.hasErrors()) {
+            return "curvePoint/update";
+        }
+        curvePoint.setCurveId(id);
+        curvePointRepository.save(curvePoint);
         // TODO: check required fields, if valid call service to update Curve and return Curve list
         return "redirect:/curvePoint/list";
     }
 
     @GetMapping("/curvePoint/delete/{id}")
     public String deleteBid(@PathVariable("id") Integer id, Model model) {
+    	CurvePoint curve = curvePointRepository.findById(id)
+				.orElseThrow(() -> new IllegalArgumentException("Invalid curve Id:" + id));
+        curvePointRepository.delete(curve);
         // TODO: Find Curve by Id and delete the Curve, return to Curve list
         return "redirect:/curvePoint/list";
     }
