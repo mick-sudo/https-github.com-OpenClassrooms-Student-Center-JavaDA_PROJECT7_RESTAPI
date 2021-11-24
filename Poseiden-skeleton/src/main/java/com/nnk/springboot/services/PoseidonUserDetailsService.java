@@ -1,6 +1,7 @@
 package com.nnk.springboot.services;
 
 import java.util.Arrays;
+import java.util.Collections;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
@@ -23,7 +24,7 @@ public class PoseidonUserDetailsService implements UserDetailsService {
         User user = userRepository.findByUserName(userName);
         GrantedAuthority authority = new SimpleGrantedAuthority(user.getRole());
         UserDetails userDetails = (UserDetails)new org.springframework.security.core.userdetails.User(user.getUsername(),
-                user.getPassword(), Arrays.asList(authority));
+                user.getPassword(), Collections.singletonList(authority));
         return userDetails;
     }
 
