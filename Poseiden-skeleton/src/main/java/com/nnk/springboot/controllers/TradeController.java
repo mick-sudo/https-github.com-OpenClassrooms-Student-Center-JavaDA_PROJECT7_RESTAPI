@@ -1,8 +1,6 @@
 package com.nnk.springboot.controllers;
 
-import com.nnk.springboot.domain.CurvePoint;
-import com.nnk.springboot.domain.Trade;
-import com.nnk.springboot.repositories.TradeRepository;
+import javax.validation.Valid;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -15,7 +13,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import javax.validation.Valid;
+import com.nnk.springboot.domain.Trade;
+import com.nnk.springboot.repositories.TradeRepository;
 
 @Controller
 public class TradeController {
