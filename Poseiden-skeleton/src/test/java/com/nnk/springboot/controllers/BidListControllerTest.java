@@ -42,5 +42,5 @@ public class BidListControllerTest {
 	public void testAddBidListAdmin() throws Exception {
 		this.mockMvc.perform(get("/rating/add")).andExpect(status().isOk());
 	}
-
+	
 }

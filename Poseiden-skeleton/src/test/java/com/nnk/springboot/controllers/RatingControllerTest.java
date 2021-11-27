@@ -12,6 +12,8 @@ import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.web.servlet.MockMvc;
 
+import com.nnk.springboot.repositories.RatingRepository;
+
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringBootTest
 @AutoConfigureMockMvc
@@ -19,6 +21,9 @@ public class RatingControllerTest {
 	@Autowired
 	private MockMvc mockMvc;
 
+    @Autowired
+    private RatingRepository ratingRepository;
+    
 	@WithMockUser(authorities = "USER")
 	@Test
 	public void showRatingListTest() throws Exception {
@@ -36,4 +41,5 @@ public class RatingControllerTest {
 	public void testAddRatingAdmin() throws Exception {
 		this.mockMvc.perform(get("/bidList/add")).andExpect(status().isOk());
 	}
+	
 }

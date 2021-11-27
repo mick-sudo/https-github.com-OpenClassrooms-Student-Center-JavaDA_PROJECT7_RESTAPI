@@ -12,10 +12,15 @@ import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.web.servlet.MockMvc;
 
+import com.nnk.springboot.repositories.RuleNameRepository;
+
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringBootTest
 @AutoConfigureMockMvc
 public class RuleControllerTest {
+	
+    @Autowired
+    private RuleNameRepository ruleNameRepository;
 
 	@Autowired
 	private MockMvc mockMvc;
@@ -37,4 +42,5 @@ public class RuleControllerTest {
 	public void testAddRuleAdmin() throws Exception {
 		this.mockMvc.perform(get("/ruleName/add")).andExpect(status().isOk());
 	}
+	
 }

@@ -18,7 +18,8 @@ import com.nnk.springboot.repositories.CurvePointRepository;
 @SpringBootTest
 @AutoConfigureMockMvc
 public class CurvePointControllerTest {
-	
+
+    
 	@Autowired
 	private MockMvc mockMvc;
 
@@ -42,5 +43,5 @@ public class CurvePointControllerTest {
 	public void testAddCurvepointListAdmin() throws Exception {
 		this.mockMvc.perform(get("/curvePoint/add")).andExpect(status().isOk());
 	}
-
+	
 }

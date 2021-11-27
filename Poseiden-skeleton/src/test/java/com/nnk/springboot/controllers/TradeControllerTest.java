@@ -12,12 +12,16 @@ import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.web.servlet.MockMvc;
 
+import com.nnk.springboot.repositories.TradeRepository;
+
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringBootTest
 @AutoConfigureMockMvc
 public class TradeControllerTest {
 
-
+    @Autowired
+    private TradeRepository tradeRepository;
+	
 	@Autowired
 	private MockMvc mockMvc;
 
@@ -38,4 +42,6 @@ public class TradeControllerTest {
 	public void testAddTradeAdmin() throws Exception {
 		this.mockMvc.perform(get("/trade/add")).andExpect(status().isOk());
 	}
+	
+
 }
